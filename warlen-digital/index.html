@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>warlen.digital | Agência de Automação de Processos & Consultoria n8n</title>
+  <meta name="description" content="Agência de Automação Comercial e Inteligência Artificial. Desenvolvemos robôs de WhatsApp, chatbots inteligentes, integrações de CRM e processos via n8n.">
+  
+  <!-- Tailwind CSS Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Space Grotesk"', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            ink: '#0a0a0f',
+            'ink-2': '#13131c',
+            cream: '#f5f0e8',
+            violet: '#6d28d9',
+            'violet-deep': '#3c1280',
+            gold: '#eab308',
+            green: '#16a34a',
+            'green-deep': '#14532d',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Premium design tokens & custom utilities */
+    :root {
+      --font-display: "Space Grotesk", sans-serif;
+      --font-body: "Inter", sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+    }
+
+    body {
+      background-color: #0a0a0f;
+      color: #f5f0e8;
+      font-family: var(--font-body);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-display);
+    }
+
+    /* Keyframes animations */
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { opacity: .4; }
+      50% { opacity: 1; }
+    }
+    @keyframes scan-vertical {
+      0% { top: -2px; opacity: 0; }
+      8% { opacity: 1; }
+      92% { opacity: 1; }
+      100% { top: 100%; opacity: 0; }
+    }
+    @keyframes rocket-hop {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(3px); }
+    }
+    @keyframes cursor-blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    @keyframes terminal-glow-pulse {
+      0%, 100% { box-shadow: 0 0 0 1px rgba(109, 40, 217, 0.32), 0 0 30px -6px rgba(109, 40, 217, 0.35); }
+      50% { box-shadow: 0 0 0 1px rgba(109, 40, 217, 0.55), 0 0 42px -4px rgba(109, 40, 217, 0.55); }
+    }
+
+    /* Utilitários Premium */
+    .glass {
+      background: rgba(19, 19, 28, 0.72);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(109, 40, 217, 0.18);
+      box-shadow: inset 0 1px 1px rgba(245, 240, 232, 0.05);
+    }
+
+    .glow-card {
+      border: 1px solid rgba(109, 40, 217, 0.22);
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .glow-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px -10px rgba(109, 40, 217, 0.25);
+      border-color: rgba(109, 40, 217, 0.4);
+    }
+
+    .conic-border {
+      position: relative;
+      background: padding-box linear-gradient(#13131c, #13131c),
+                  border-box conic-gradient(from var(--angle, 0deg), #6d28d9, #eab308, #6d28d9);
+      border: 1.5px solid transparent;
+      border-radius: 1rem;
+    }
+
+    .tech-grid {
+      background-image: linear-gradient(rgba(109, 40, 217, 0.06) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(109, 40, 217, 0.06) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: radial-gradient(circle, black, transparent 75%);
+      -webkit-mask-image: radial-gradient(circle, black, transparent 75%);
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 9999px;
+      filter: blur(80px);
+      opacity: 0.35;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .grad-text {
+      background: linear-gradient(135deg, #f5f0e8 30%, #6d28d9 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .btn-primary-glow {
+      background: linear-gradient(135deg, #16a34a 0%, #14532d 100%);
+      color: #f5f0e8;
+      border-radius: 9999px;
+      box-shadow: 0 4px 20px -4px rgba(22, 163, 74, 0.45);
+      transition: all 0.2s ease;
+    }
+    .btn-primary-glow:hover {
+      box-shadow: 0 6px 24px -2px rgba(22, 163, 74, 0.65);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost-glow {
+      background: rgba(19, 19, 28, 0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #f5f0e8;
+      border: 1px solid rgba(109, 40, 217, 0.3);
+      border-radius: 9999px;
+      transition: all 0.2s ease;
+    }
+    .btn-ghost-glow:hover {
+      border-color: rgba(109, 40, 217, 0.6);
+      background: rgba(19, 19, 28, 0.6);
+    }
+
+    .chip-glow {
+      background: rgba(19, 19, 28, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #6d28d9;
+      border: 1px solid rgba(109, 40, 217, 0.3);
+      box-shadow: 0 0 12px -3px rgba(109, 40, 217, 0.3);
+    }
+
+    .tone-violet {
+      background: linear-gradient(135deg, rgba(109, 40, 217, 0.2) 0%, rgba(60, 18, 128, 0.1) 100%);
+      border: 1px solid rgba(109, 40, 217, 0.3);
+      color: #6d28d9;
+    }
+
+    .tone-accent {
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.2) 0%, rgba(133, 77, 14, 0.1) 100%);
+      border: 1px solid rgba(234, 179, 8, 0.3);
+      color: #eab308;
+    }
+
+    .tone-green {
+      background: linear-gradient(135deg, rgba(22, 163, 74, 0.2) 0%, rgba(20, 83, 45, 0.1) 100%);
+      border: 1px solid rgba(22, 163, 74, 0.3);
+      color: #16a34a;
+    }
+
+    .terminal-glow {
+      animation: terminal-glow-pulse 4s ease-in-out infinite;
+    }
+
+    .rocket-icon-hover:hover .rocket-icon {
+      animation: rocket-hop 0.5s ease infinite;
+    }
+
+    .terminal-cursor {
+      color: #eab308;
+      animation: cursor-blink 1s step-end infinite;
+    }
+
+    .animate-marquee {
+      animation: marquee 25s linear infinite;
+    }
+
+    /* CSS Custom Property Rotation for Conic Border */
+    @property --angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+    .conic-border {
+      animation: conic-spin 4s linear infinite;
+    }
+    @keyframes conic-spin {
+      to { --angle: 360deg; }
+    }
+  </style>
+</head>
+<body class="bg-ink text-cream selection:bg-violet/30 antialiased">
+
+  <!-- ================= HEADER / NAVBAR ================= -->
+  <nav id="navbar" class="fixed left-0 right-0 z-50 px-4 md:px-6 top-4 transition-all duration-300">
+    <div class="mx-auto max-w-7xl">
+      <div class="glass rounded-full px-6 py-3.5 flex items-center justify-between shadow-lg">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2.5 group">
+          <div class="w-8 h-8 rounded-full bg-violet/20 flex items-center justify-center border border-violet/30 text-violet group-hover:scale-105 transition-transform duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M9 1v3"/><path d="M15 1v3"/><path d="M9 20v3"/><path d="M15 20v3"/><path d="M20 9h3"/><path d="M20 15h3"/><path d="M1 9h3"/><path d="M1 15h3"/></svg>
+          </div>
+          <span class="font-display font-bold text-base md:text-lg tracking-[-0.02em]">
+            warlen<span class="text-violet">.digital</span>
+          </span>
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#pains" class="font-mono text-[10px] uppercase tracking-wider text-cream/70 hover:text-cream transition-colors">Dores</a>
+          <a href="#services" class="font-mono text-[10px] uppercase tracking-wider text-cream/70 hover:text-cream transition-colors">Serviços</a>
+          <a href="#process" class="font-mono text-[10px] uppercase tracking-wider text-cream/70 hover:text-cream transition-colors">Como Funciona</a>
+          <a href="#offer" class="font-mono text-[10px] uppercase tracking-wider text-cream/70 hover:text-cream transition-colors">Investimento</a>
+          <a href="#faq" class="font-mono text-[10px] uppercase tracking-wider text-cream/70 hover:text-cream transition-colors">FAQ</a>
+        </div>
+
+        <!-- Desktop CTA -->
+        <div class="hidden md:block">
+          <a href="https://wa.me/5527997394049?text=Olá%20Warlen,%20quero%20automatizar%20minha%20operação!" target="_blank" rel="noopener noreferrer" class="rocket-icon-hover inline-flex items-center justify-center font-semibold transition-all px-4 py-2 min-h-[40px] text-[13px] btn-primary-glow gap-1">
+            Agendar Diagnóstico
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="rocket-icon"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+          </a>
+        </div>
+
+        <!-- Mobile Hamburguer Menu Button -->
+        <button id="menu-btn" class="md:hidden p-1.5 text-cream/80 hover:text-cream focus:outline-none" aria-label="Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu Drawer Overlay -->
+  <div id="mobile-menu" class="fixed inset-0 z-50 bg-ink/98 backdrop-blur-md hidden flex-col justify-between p-6 transition-all duration-300">
+    <div>
+      <div class="flex items-center justify-between pb-6 border-b border-violet/10">
+        <div class="flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-violet"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M9 1v3"/><path d="M15 1v3"/><path d="M9 20v3"/><path d="M15 20v3"/><path d="M20 9h3"/><path d="M20 15h3"/><path d="M1 9h3"/><path d="M1 15h3"/></svg>
+          <span class="font-display font-bold text-lg">warlen<span class="text-violet">.digital</span></span>
+        </div>
+        <button id="close-btn" class="p-1.5 text-cream/80 hover:text-cream focus:outline-none" aria-label="Fechar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="flex flex-col gap-6 pt-12">
+        <a href="#pains" class="font-display font-semibold text-2xl tracking-tight hover:text-violet transition-colors mobile-link">Dores</a>
+        <a href="#services" class="font-display font-semibold text-2xl tracking-tight hover:text-violet transition-colors mobile-link">Serviços</a>
+        <a href="#process" class="font-display font-semibold text-2xl tracking-tight hover:text-violet transition-colors mobile-link">Como Funciona</a>
+        <a href="#offer" class="font-display font-semibold text-2xl tracking-tight hover:text-violet transition-colors mobile-link">Investimento</a>
+        <a href="#faq" class="font-display font-semibold text-2xl tracking-tight hover:text-violet transition-colors mobile-link">FAQ</a>
+      </div>
+    </div>
+    <div class="pt-6 border-t border-violet/10 flex flex-col gap-4">
+      <p class="text-xs font-mono text-cream/50 text-center uppercase tracking-wider">Disponível para projetos urgentes</p>
+      <a href="https://wa.me/5527997394049?text=Olá%20Warlen,%20quero%20automatizar%20minha%20operação!" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center font-semibold transition-all px-6 py-3.5 min-h-[48px] text-[15px] btn-primary-glow gap-2">
+        Falar no WhatsApp
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+      </a>
+    </div>
+  </div>
+
+
+  <!-- ================= HERO SECTION ================= -->
+  <section class="relative min-h-screen flex flex-col justify-between pt-36 pb-12 px-6 overflow-hidden">
+    <!-- Grid & Glow decoration -->
+    <div class="absolute inset-0 tech-grid opacity-75 z-0"></div>
+    <div class="orb w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-violet/15 top-[-10%] left-[-10%]" style="animation: float 20s ease-in-out infinite"></div>
+    <div class="orb w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-gold/10 bottom-[10%] right-[-5%]" style="animation: float 24s ease-in-out infinite"></div>
+
+    <div class="mx-auto max-w-7xl w-full flex-grow flex flex-col justify-center items-center text-center relative z-10">
+      <!-- Badge Overtitle -->
+      <span class="chip-glow rounded-full px-4 py-1.5 font-mono text-[10px] md:text-[11px] uppercase tracking-[0.2em] mb-6">
+        IA · Automação · CRM · WhatsApp
+      </span>
+
+      <!-- Title -->
+      <h1 class="font-display font-semibold text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-[-0.04em] leading-[1.02] max-w-[25ch] mb-6">
+        Automatize sua operação <br class="hidden md:inline">
+        e aumente suas vendas <br class="hidden md:inline">
+        <span class="grad-text">com Inteligência Artificial.</span>
+      </h1>
+
+      <!-- Description -->
+      <p class="text-cream/70 text-sm md:text-lg max-w-[62ch] mb-10 leading-relaxed">
+        Desenvolvemos CRMs personalizados, agentes de IA e automações inteligentes para eliminar tarefas manuais e acelerar o crescimento da sua empresa.
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex flex-col sm:flex-row items-center gap-4 mb-12">
+        <a href="https://wa.me/5527997394049?text=Olá%20Warlen,%20quero%20automatizar%20minha%20operação!" target="_blank" rel="noopener noreferrer" class="rocket-icon-hover inline-flex items-center justify-center font-semibold transition-all px-6 py-3.5 min-h-[48px] text-[15px] btn-primary-glow gap-2">
+          Conversar com Warlen
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="rocket-icon"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+        </a>
+        <a href="#services" class="inline-flex items-center justify-center font-semibold transition-all px-6 py-3.5 min-h-[48px] text-[15px] btn-ghost-glow">
+          Ver Nossas Soluções
+        </a>
+      </div>
+
+      <!-- Features pills -->
+      <div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-3 max-w-[800px] mb-8">
+        <div class="flex items-center gap-2 font-mono text-[11px] text-cream/50">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-green"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+          <span>Sem Mensalidades de Licenças</span>
+        </div>
+        <div class="flex items-center gap-2 font-mono text-[11px] text-cream/50">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-green"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+          <span>Hospedagem n8n Inclusa</span>
+        </div>
+        <div class="flex items-center gap-2 font-mono text-[11px] text-cream/50">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-green"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+          <span>IA com Atraso Humano (Anti-Ban)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Infinite Marquee partners -->
+    <div class="relative w-full overflow-hidden py-6 border-t border-b border-violet/10 bg-ink/20 backdrop-blur-sm z-10">
+      <div class="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-ink to-transparent z-20 pointer-events-none"></div>
+      <div class="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-ink to-transparent z-20 pointer-events-none"></div>
+
+      <div class="flex w-max animate-marquee gap-16 md:gap-24 items-center">
+        <!-- Loop list elements -->
+        <div class="flex items-center gap-2 font-display font-medium text-cream/45 hover:text-cream/75 transition-colors duration-300">
+          <div class="w-1.5 h-1.5 rounded-full bg-violet/60"></div>
+          <span class="text-sm md:text-base uppercase tracking-wider">n8n</span>
+        </div>
+        <div class="flex items-center gap-2 font-display font-medium text-cream/45 hover:text-cream/75 transition-colors duration-300">
+          <div class="w-1.5 h-1.5 rounded-full bg-violet/60"></div>
+          <span class="text-sm md:text-base uppercase tracking-wider">Meta Ads</span>
+        </div>
+        <div class="flex items-center gap-2 font-display font-medium text-cream/45 hover:text-cream/75 transition-colors duration-300">
+          <div class="w-1.5 h-1.5 rounded-full bg-violet/60"></div>
+          <span class="text-sm md:text-base uppercase tracking-wider">OpenAI</span>
+        </div>
+        <div class="flex items-center gap-2 font-display font-medium text-cream/45 hover:text-cream/75 transition-colors duration-300">
+          <div class="w-1.5 h-1.5 rounded-full bg-violet/60"></div>
+          <span class="text-sm md:text-base uppercase tracking-wider">Gemini</span>
+        </div>
+        <div class="flex items-center gap-2 font-display font-medium text-cream/45 hover:text-cream/75 transition-colors duration-300">
+          <div class="w-1.5 h-1.5 rounded-full bg-violet/60"></div>
+          <span class="text-sm md:text-base uppercase tracking-wider">Claude AI</span>
+        </div>
+        <div class="flex items-center gap-2 font-display font-medium text-cream/45 hover:text-cream/75 transition-colors duration-300">
+          <div class="w-1.5 h-1.5 rounded-full bg-violet/60"></div>
+          <span class="text-sm md:text-base uppercase tracking-wider">Antigravity</span>
+        </div>
+        <div class="flex items-center gap-2 font-display font-medium text-cream/45 hover:text-cream/75 transition-colors duration-300">
+          <div class="w-1.5 h-1.5 rounded-full bg-violet/60"></div>
+          <span class="text-sm md:text-base uppercase tracking-wider">Hostinger</span>
+        </div>
+        <div class="flex items-center gap-2 font-display font-medium text-cream/45 hover:text-cream/75 transition-colors duration-300">
+          <div class="w-1.5 h-1.5 rounded-full bg-violet/60"></div>
+          <span class="text-sm md:text-base uppercase tracking-wider">Hostgator</span>
+        </div>
+        <div class="flex items-center gap-2 font-display font-medium text-cream/45 hover:text-cream/75 transition-colors duration-300">
+          <div class="w-1.5 h-1.5 rounded-full bg-violet/60"></div>
+          <span class="text-sm md:text-base uppercase tracking-wider">Supabase</span>
+        </div>
+        <div class="flex items-center gap-2 font-display font-medium text-cream/45 hover:text-cream/75 transition-colors duration-300">
+          <div class="w-1.5 h-1.5 rounded-full bg-violet/60"></div>
+          <span class="text-sm md:text-base uppercase tracking-wider">Stripe</span>
+        </div>
+        <!-- Duplicated for seamless loop -->
+        <div class="flex items-center gap-2 font-display font-medium text-cream/45 hover:text-cream/75 transition-colors duration-300">
+          <div class="w-1.5 h-1.5 rounded-full bg-violet/60"></div>
+          <span class="text-sm md:text-base uppercase tracking-wider">n8n</span>
+        </div>
+        <div class="flex items-center gap-2 font-display font-medium text-cream/45 hover:text-cream/75 transition-colors duration-300">
+          <div class="w-1.5 h-1.5 rounded-full bg-violet/60"></div>
+          <span class="text-sm md:text-base uppercase tracking-wider">Meta Ads</span>
+        </div>
+        <div class="flex items-center gap-2 font-display font-medium text-cream/45 hover:text-cream/75 transition-colors duration-300">
+          <div class="w-1.5 h-1.5 rounded-full bg-violet/60"></div>
+          <span class="text-sm md:text-base uppercase tracking-wider">OpenAI</span>
+        </div>
+        <div class="flex items-center gap-2 font-display font-medium text-cream/45 hover:text-cream/75 transition-colors duration-300">
+          <div class="w-1.5 h-1.5 rounded-full bg-violet/60"></div>
+          <span class="text-sm md:text-base uppercase tracking-wider">Gemini</span>
+        </div>
+        <div class="flex items-center gap-2 font-display font-medium text-cream/45 hover:text-cream/75 transition-colors duration-300">
+          <div class="w-1.5 h-1.5 rounded-full bg-violet/60"></div>
+          <span class="text-sm md:text-base uppercase tracking-wider">Claude AI</span>
+        </div>
+        <div class="flex items-center gap-2 font-display font-medium text-cream/45 hover:text-cream/75 transition-colors duration-300">
+          <div class="w-1.5 h-1.5 rounded-full bg-violet/60"></div>
+          <span class="text-sm md:text-base uppercase tracking-wider">Antigravity</span>
+        </div>
+        <div class="flex items-center gap-2 font-display font-medium text-cream/45 hover:text-cream/75 transition-colors duration-300">
+          <div class="w-1.5 h-1.5 rounded-full bg-violet/60"></div>
+          <span class="text-sm md:text-base uppercase tracking-wider">Hostinger</span>
+        </div>
+        <div class="flex items-center gap-2 font-display font-medium text-cream/45 hover:text-cream/75 transition-colors duration-300">
+          <div class="w-1.5 h-1.5 rounded-full bg-violet/60"></div>
+          <span class="text-sm md:text-base uppercase tracking-wider">Hostgator</span>
+        </div>
+        <div class="flex items-center gap-2 font-display font-medium text-cream/45 hover:text-cream/75 transition-colors duration-300">
+          <div class="w-1.5 h-1.5 rounded-full bg-violet/60"></div>
+          <span class="text-sm md:text-base uppercase tracking-wider">Supabase</span>
+        </div>
+        <div class="flex items-center gap-2 font-display font-medium text-cream/45 hover:text-cream/75 transition-colors duration-300">
+          <div class="w-1.5 h-1.5 rounded-full bg-violet/60"></div>
+          <span class="text-sm md:text-base uppercase tracking-wider">Stripe</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= TERMINAL / DEMO SECTION ================= -->
+  <section id="pains" class="relative py-24 md:py-36 px-6 border-t border-violet/10">
+    <div class="mx-auto max-w-7xl grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16 items-center">
+      
+      <!-- Left side copy -->
+      <div>
+        <span class="chip-glow rounded-full px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em]">
+          Automação em Ação
+        </span>
+        <h2 class="font-display font-semibold text-3xl sm:text-5xl md:text-6xl tracking-[-0.03em] leading-[1.05] mb-6 mt-4">
+          De horas de digitação para <br>
+          <span class="grad-text">segundos de automação.</span>
+        </h2>
+        <p class="text-cream/65 text-sm md:text-base max-w-[50ch] mb-8 leading-relaxed">
+          Veja como a mágica acontece nos bastidores. O n8n escuta o primeiro contato, cria a oportunidade no CRM, qualifica o lead conversando de forma humanizada e atualiza os dados em tempo real. Sem erros manuais.
+        </p>
+
+        <div class="space-y-4 mb-8">
+          <div class="flex items-center gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-green shrink-0"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+            <span class="text-sm font-medium text-cream/80">Sem preenchimento manual de planilhas</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-green shrink-0"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+            <span class="text-sm font-medium text-cream/80">Sem leads frios entupindo o time comercial</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-green shrink-0"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+            <span class="text-sm font-medium text-cream/80">Sem esquecimento de retornos</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-green shrink-0"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+            <span class="text-sm font-medium text-cream/80">Organização perfeita de todo o processo</span>
+          </div>
+        </div>
+
+        <a href="https://wa.me/5527997394049?text=Olá%20Warlen,%20quero%20automatizar%20minha%20operação!" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center font-semibold transition-all px-6 py-3.5 min-h-[48px] text-[15px] btn-primary-glow gap-2">
+          Quero no meu Negócio
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Right side animated terminal console -->
+      <div class="w-full relative">
+        <div class="absolute inset-0 bg-gradient-to-tr from-violet/10 to-gold/5 blur-3xl pointer-events-none -z-10"></div>
+
+        <div class="w-full rounded-2xl border border-violet/20 glass shadow-2xl overflow-hidden terminal-glow">
+          <!-- Window Header -->
+          <div class="flex items-center justify-between px-4 py-3 border-b border-violet/10 bg-black/40">
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+              <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+              <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+            </div>
+            <div class="flex items-center gap-1.5 font-mono text-[10px] text-cream/40 uppercase tracking-widest">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-violet"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>
+              n8n-live-console
+            </div>
+            <div class="w-12"></div>
+          </div>
+
+          <!-- Console log output screen -->
+          <div id="console-screen" class="p-5 font-mono text-[11px] md:text-xs min-h-[340px] max-h-[380px] overflow-y-auto space-y-2.5 bg-black/50">
+            <!-- Items injected by JavaScript -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= DO RES (PAINS) ================= -->
+  <section class="relative py-24 md:py-36 px-6 border-t border-violet/10">
+    <div class="mx-auto max-w-7xl">
+      <span class="chip-glow rounded-full px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em]">
+        Diagnóstico Operacional
+      </span>
+      <h2 class="font-display font-semibold text-3xl sm:text-5xl md:text-6xl tracking-[-0.03em] leading-[1.05] max-w-[18ch] mb-4 mt-4">
+        Os 4 gargalos que estão <br>
+        <span class="grad-text">drenando o seu lucro hoje.</span>
+      </h2>
+      <p class="text-cream/65 text-[15px] md:text-[17px] max-w-[52ch] mb-16">
+        Se o seu time comercial ainda gasta tempo com tarefas manuais e conversas repetitivas, você está perdendo vendas de forma silenciosa.
+      </p>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Card 1 -->
+        <div class="glass rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between min-h-[300px] border border-violet/15 hover:border-violet/30 transition-all duration-300 group">
+          <div class="absolute top-4 right-6 font-display font-bold text-7xl text-cream/5 pointer-events-none select-none">01</div>
+          <div>
+            <div class="w-10 h-10 rounded-lg tone-violet flex items-center justify-center mb-6">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="text-xs font-mono line-through text-red-500/70 uppercase tracking-wider mb-2">Demora no atendimento</div>
+            <h3 class="text-lg font-display font-semibold text-green mb-4">Resposta em 5 segundos</h3>
+          </div>
+          <p class="text-xs md:text-sm text-cream/65 leading-relaxed">Nossos agentes de IA atendem seus clientes instantaneamente no WhatsApp, 24 horas por dia, qualificando o lead de imediato.</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="glass rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between min-h-[300px] border border-violet/15 hover:border-violet/30 transition-all duration-300 group">
+          <div class="absolute top-4 right-6 font-display font-bold text-7xl text-cream/5 pointer-events-none select-none">02</div>
+          <div>
+            <div class="w-10 h-10 rounded-lg tone-violet flex items-center justify-center mb-6">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/></svg>
+            </div>
+            <div class="text-xs font-mono line-through text-red-500/70 uppercase tracking-wider mb-2">Leads perdidos em planilhas</div>
+            <h3 class="text-lg font-display font-semibold text-green mb-4">CRM 100% automático</h3>
+          </div>
+          <p class="text-xs md:text-sm text-cream/65 leading-relaxed">Toda nova conversa no WhatsApp cria automaticamente um cartão no seu CRM. Fim dos contatos esquecidos em cadernos ou chats.</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="glass rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between min-h-[300px] border border-violet/15 hover:border-violet/30 transition-all duration-300 group">
+          <div class="absolute top-4 right-6 font-display font-bold text-7xl text-cream/5 pointer-events-none select-none">03</div>
+          <div>
+            <div class="w-10 h-10 rounded-lg tone-violet flex items-center justify-center mb-6">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 14a8 8 0 0 0-8-8H2"/><path d="m12 2-4 4 4 4"/><path d="M2 18a8 8 0 0 0 8 8h12"/><path d="m16 22 4-4-4-4"/></svg>
+            </div>
+            <div class="text-xs font-mono line-through text-red-500/70 uppercase tracking-wider mb-2">Trabalho manual repetitivo</div>
+            <h3 class="text-lg font-display font-semibold text-green mb-4">Processos autônomos</h3>
+          </div>
+          <p class="text-xs md:text-sm text-cream/65 leading-relaxed">Configuramos fluxos inteligentes no n8n para atualizar o CRM, disparar alertas, gerar relatórios e organizar tarefas de forma automática.</p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="glass rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between min-h-[300px] border border-violet/15 hover:border-violet/30 transition-all duration-300 group">
+          <div class="absolute top-4 right-6 font-display font-bold text-7xl text-cream/5 pointer-events-none select-none">04</div>
+          <div>
+            <div class="w-10 h-10 rounded-lg tone-violet flex items-center justify-center mb-6">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+            </div>
+            <div class="text-xs font-mono line-through text-red-500/70 uppercase tracking-wider mb-2">Falta de controle de ROI</div>
+            <h3 class="text-lg font-display font-semibold text-green mb-4">Performance em tempo real</h3>
+          </div>
+          <p class="text-xs md:text-sm text-cream/65 leading-relaxed">Saiba exatamente quanto gastou em anúncios e qual foi o faturamento gerado por vendedor, tudo atualizado de forma transparente.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= BENTO GRID SERVICOS ================= -->
+  <section id="services" class="relative py-24 md:py-36 px-6 border-t border-violet/10">
+    <div class="mx-auto max-w-7xl">
+      <span class="chip-glow rounded-full px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em]">
+        Nossas Soluções
+      </span>
+      <h2 class="font-display font-semibold text-3xl sm:text-5xl md:text-6xl tracking-[-0.03em] leading-[1.05] max-w-[18ch] mb-4 mt-4">
+        Serviços de <br>
+        <span class="grad-text">Automação de Processos.</span>
+      </h2>
+      <p class="text-cream/65 text-[15px] md:text-[17px] max-w-[52ch] mb-16">
+        Não entregamos soluções genéricas. Oferecemos consultoria especializada em automação comercial para mapear, conectar e otimizar cada etapa do seu fluxo de negócios.
+      </p>
+
+      <!-- Bento Grid -->
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Card 1 (Row span 2) -->
+        <div class="glass rounded-2xl p-6 border border-violet/15 hover:border-violet/35 transition-all duration-300 flex flex-col justify-between group cursor-pointer md:row-span-2 min-h-[300px]">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center tone-accent">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cream/35 group-hover:text-green group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+          </div>
+          <div class="mt-4 flex-grow flex flex-col justify-between">
+            <span class="font-mono text-[9px] uppercase tracking-wider text-cream/45 bg-ink-2/40 px-2.5 py-1 rounded-full border border-violet/10 self-start">
+              WhatsApp · Instagram
+            </span>
+            <div class="space-y-2 mt-8">
+              <h3 class="font-display font-semibold text-lg md:text-xl text-cream">Agentes de IA de Vendas</h3>
+              <p class="text-xs text-cream/60 leading-relaxed">Treinamos IAs personalizadas com o tom de voz e dados da sua empresa para atender, qualificar e agendar clientes sem intervenção humana de forma super natural.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="glass rounded-2xl p-6 border border-violet/15 hover:border-violet/35 transition-all duration-300 flex flex-col justify-between group cursor-pointer min-h-[200px]">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center tone-violet">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cream/35 group-hover:text-green group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+          </div>
+          <div>
+            <span class="font-mono text-[9px] uppercase tracking-wider text-cream/45 bg-ink-2/40 px-2.5 py-1 rounded-full border border-violet/10 inline-block mb-3">Trello · Baserow · HubSpot</span>
+            <h3 class="font-display font-semibold text-lg text-cream">Estruturação de CRM</h3>
+            <p class="text-xs text-cream/60 leading-relaxed mt-1">Criamos e conectamos quadros de venda interativos para que seu time comercial saiba o status de cada lead em tempo real.</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="glass rounded-2xl p-6 border border-violet/15 hover:border-violet/35 transition-all duration-300 flex flex-col justify-between group cursor-pointer min-h-[200px]">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center tone-violet">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M9 1v3"/><path d="M15 1v3"/><path d="M9 20v3"/><path d="M15 20v3"/><path d="M20 9h3"/><path d="M20 15h3"/><path d="M1 9h3"/><path d="M1 15h3"/></svg>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cream/35 group-hover:text-green group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+          </div>
+          <div>
+            <span class="font-mono text-[9px] uppercase tracking-wider text-cream/45 bg-ink-2/40 px-2.5 py-1 rounded-full border border-violet/10 inline-block mb-3">Integrações · APIs</span>
+            <h3 class="font-display font-semibold text-lg text-cream">Consultoria & Integração n8n</h3>
+            <p class="text-xs text-cream/60 leading-relaxed mt-1">Conectamos todas as suas ferramentas comerciais em uma engrenagem única que automatiza processos de forma integrada e segura.</p>
+          </div>
+        </div>
+
+        <!-- Card 4 (Col span 2) -->
+        <div class="glass rounded-2xl p-6 border border-violet/15 hover:border-violet/35 transition-all duration-300 flex flex-col justify-between group cursor-pointer md:col-span-2 min-h-[200px]">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center tone-accent">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M13 8H7"/><path d="M17 12H7"/></svg>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cream/35 group-hover:text-green group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+          </div>
+          <div>
+            <span class="font-mono text-[9px] uppercase tracking-wider text-cream/45 bg-ink-2/40 px-2.5 py-1 rounded-full border border-violet/10 inline-block mb-3">Instagram DMs · Comments</span>
+            <h3 class="font-display font-semibold text-lg text-cream">Automação de Redes Sociais</h3>
+            <p class="text-xs text-cream/60 leading-relaxed mt-1">Transformamos comentários e directs em vendas imediatas, guiando o lead do Instagram diretamente para o seu time comercial no WhatsApp.</p>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="glass rounded-2xl p-6 border border-violet/15 hover:border-violet/35 transition-all duration-300 flex flex-col justify-between group cursor-pointer min-h-[200px]">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center tone-violet">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cream/35 group-hover:text-green group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+          </div>
+          <div>
+            <span class="font-mono text-[9px] uppercase tracking-wider text-cream/45 bg-ink-2/40 px-2.5 py-1 rounded-full border border-violet/10 inline-block mb-3">ROI · Leads · Vendas</span>
+            <h3 class="font-display font-semibold text-lg text-cream">Dashboards de Métricas</h3>
+            <p class="text-xs text-cream/60 leading-relaxed mt-1">Desenvolvemos painéis personalizados para você acompanhar de forma simples e visual a saúde financeira da sua operação comercial.</p>
+          </div>
+        </div>
+
+        <!-- Card 6 (Col span 3) -->
+        <div class="glass rounded-2xl p-6 border border-violet/15 hover:border-violet/35 transition-all duration-300 flex flex-col justify-between group cursor-pointer md:col-span-3 min-h-[160px]">
+          <div class="flex items-center justify-between mb-2">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center tone-accent">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cream/35 group-hover:text-green group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+          </div>
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <span class="font-mono text-[9px] uppercase tracking-wider text-cream/45 bg-ink-2/40 px-2.5 py-1 rounded-full border border-violet/10 inline-block mb-2">Filtro de Clientes</span>
+              <h3 class="font-display font-semibold text-lg text-cream">SDR de Qualificação Automatizado</h3>
+            </div>
+            <p class="text-xs text-cream/60 leading-relaxed max-w-[50ch]">Filtre leads curiosos ou sem orçamento de forma automática através de perguntas qualificadoras feitas pela IA antes de enviar para o seu time comercial.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= METRICAS E STATS ================= -->
+  <section class="relative py-12 md:py-16 px-6">
+    <div class="mx-auto max-w-7xl">
+      <div class="glass rounded-3xl p-8 md:p-12 border border-violet/15 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-violet/5 via-transparent to-gold/5 pointer-events-none"></div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 relative z-10 text-center">
+          <div class="space-y-2 relative">
+            <div class="font-display font-bold text-4xl md:text-6xl tracking-tight grad-text animate-pulse">5s</div>
+            <div class="font-mono text-[10px] md:text-xs text-cream/50 uppercase tracking-widest">Tempo de Resposta</div>
+          </div>
+          <div class="space-y-2 relative">
+            <div class="hidden lg:block absolute left-[-6%] top-1/4 bottom-1/4 w-[1px] bg-violet/15"></div>
+            <div class="font-display font-bold text-4xl md:text-6xl tracking-tight grad-text animate-pulse">+40h</div>
+            <div class="font-mono text-[10px] md:text-xs text-cream/50 uppercase tracking-widest">Horas Salvas/Semana</div>
+          </div>
+          <div class="space-y-2 relative">
+            <div class="hidden lg:block absolute left-[-6%] top-1/4 bottom-1/4 w-[1px] bg-violet/15"></div>
+            <div class="font-display font-bold text-4xl md:text-6xl tracking-tight grad-text animate-pulse">100%</div>
+            <div class="font-mono text-[10px] md:text-xs text-cream/50 uppercase tracking-widest">Leads no CRM</div>
+          </div>
+          <div class="space-y-2 relative">
+            <div class="hidden lg:block absolute left-[-6%] top-1/4 bottom-1/4 w-[1px] bg-violet/15"></div>
+            <div class="font-display font-bold text-4xl md:text-6xl tracking-tight grad-text animate-pulse">R$ 0</div>
+            <div class="font-mono text-[10px] md:text-xs text-cream/50 uppercase tracking-widest">Custo de Licenças</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= COMO FUNCIONA (PROCESS) ================= -->
+  <section id="process" class="relative py-24 md:py-36 px-6 border-t border-violet/10">
+    <div class="mx-auto max-w-7xl">
+      <span class="chip-glow rounded-full px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em]">
+        O Método
+      </span>
+      <h2 class="font-display font-semibold text-3xl sm:text-5xl md:text-6xl tracking-[-0.03em] leading-[1.05] max-w-[18ch] mb-4 mt-4">
+        Da concepção ao <br>
+        <span class="grad-text">funcionamento em 15 dias.</span>
+      </h2>
+      <p class="text-cream/65 text-[15px] md:text-[17px] max-w-[52ch] mb-20">
+        Processo ágil e transparente estruturado em etapas claras. Você acompanha cada fase do desenvolvimento em tempo real.
+      </p>
+
+      <!-- Process Steps -->
+      <div class="relative grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Connector Line (Desktop) -->
+        <div class="hidden lg:block absolute top-[28px] left-[10%] right-[10%] h-[1px] bg-gradient-to-r from-violet/50 via-gold/50 to-green/50 -z-10"></div>
+
+        <!-- Step 1 -->
+        <div class="flex flex-col relative z-10 group">
+          <div class="flex items-center justify-between mb-6">
+            <div class="w-14 h-14 rounded-full flex items-center justify-center border tone-violet border-violet/40">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M8 11h6"/><path d="M11 8v6"/></svg>
+            </div>
+            <span class="font-display font-bold text-4xl text-cream/20 group-hover:text-violet/60 transition-colors">01</span>
+          </div>
+          <span class="font-mono text-[10px] text-green uppercase tracking-wider mb-2 block">Dia 1 a 3</span>
+          <h3 class="font-display font-bold text-lg md:text-xl text-cream mb-3">Diagnóstico Geral</h3>
+          <p class="text-xs md:text-sm text-cream/60 leading-relaxed">Mapeamos sua operação comercial atual, identificando os maiores gargalos de tempo e perda de contatos do seu time.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="flex flex-col relative z-10 group">
+          <div class="flex items-center justify-between mb-6">
+            <div class="w-14 h-14 rounded-full flex items-center justify-center border tone-violet border-violet/40">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.886H3.82l4.8 3.49L6.708 19 12 15.23 17.292 19l-1.912-6.624 4.8-3.49h-6.268z"/></svg>
+            </div>
+            <span class="font-display font-bold text-4xl text-cream/20 group-hover:text-violet/60 transition-colors">02</span>
+          </div>
+          <span class="font-mono text-[10px] text-green uppercase tracking-wider mb-2 block">Dia 4 a 7</span>
+          <h3 class="font-display font-bold text-lg md:text-xl text-cream mb-3">Desenho do Ecossistema</h3>
+          <p class="text-xs md:text-sm text-cream/60 leading-relaxed">Construímos a arquitetura do n8n, criamos as tabelas no CRM e interligamos os canais de atendimento e WhatsApp.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="flex flex-col relative z-10 group">
+          <div class="flex items-center justify-between mb-6">
+            <div class="w-14 h-14 rounded-full flex items-center justify-center border tone-accent border-gold/40">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
+            </div>
+            <span class="font-display font-bold text-4xl text-cream/20 group-hover:text-gold/60 transition-colors">03</span>
+          </div>
+          <span class="font-mono text-[10px] text-green uppercase tracking-wider mb-2 block">Dia 8 a 12</span>
+          <h3 class="font-display font-bold text-lg md:text-xl text-cream mb-3">Treinamento da IA</h3>
+          <p class="text-xs md:text-sm text-cream/60 leading-relaxed">Alimentamos o agente inteligente de IA com as regras de negócio, dados e roteiros de conversão específicos da sua empresa.</p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="flex flex-col relative z-10 group">
+          <div class="flex items-center justify-between mb-6">
+            <div class="w-14 h-14 rounded-full flex items-center justify-center border tone-accent border-gold/40">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.25-2.5 3.5-2.5 5.5C4 22 6.25 21 7.5 19.5"/><path d="m12 12 9-9"/><path d="m16 8 2 2"/><path d="m9 15 2 2"/><path d="M19 12c.5 1.5 2 2 2 2l-3 3-3-3c0 0 .5-.5 2-2z"/><path d="M12 19c-1.5.5-2 2-2 2l-3-3 3-3c0 0 .5.5 2 2z"/></svg>
+            </div>
+            <span class="font-display font-bold text-4xl text-cream/20 group-hover:text-gold/60 transition-colors">04</span>
+          </div>
+          <span class="font-mono text-[10px] text-green uppercase tracking-wider mb-2 block">Dia 13 a 15</span>
+          <h3 class="font-display font-bold text-lg md:text-xl text-cream mb-3">Entrega e Escopo</h3>
+          <p class="text-xs md:text-sm text-cream/60 leading-relaxed">Colocamos o ecossistema para rodar em produção, realizamos testes de estresse, treinamos sua equipe e entregamos o painel.</p>
+        </div>
+      </div>
+
+      <div class="mt-20 glass rounded-xl border border-violet/15 p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-2.5 h-2.5 rounded-full bg-green animate-ping"></div>
+          <span class="font-mono text-xs text-cream/70">
+            <span class="text-violet">warlen.digital:~$</span> n8n-deploy --project client-system --production
+          </span>
+        </div>
+        <span class="font-mono text-[10px] uppercase text-cream/45 tracking-widest bg-ink-2 px-3 py-1 rounded border border-violet/10">
+          [SYS STATUS: READY TO RUN]
+        </span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= APRESENTACAO / VISÃO (FOUNDER) ================= -->
+  <section class="relative py-24 md:py-36 px-6 border-t border-violet/10">
+    <div class="mx-auto max-w-7xl grid lg:grid-cols-[0.85fr_1.15fr] gap-12 lg:gap-16 items-center">
+      
+      <!-- Left side visual card (WR gold/violet card placeholder) -->
+      <div class="flex flex-col items-center text-center">
+        <div class="conic-border p-[1.5px] mb-6">
+          <div class="w-[180px] h-[180px] md:w-[220px] md:h-[220px] rounded-2xl bg-ink-2 flex flex-col items-center justify-center relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-tr from-violet/20 to-gold/5 pointer-events-none"></div>
+            
+            <span class="font-display font-bold text-5xl md:text-6xl tracking-tighter text-cream relative z-10">
+              W<span class="text-violet">R</span>
+            </span>
+            <span class="font-mono text-[9px] text-cream/45 uppercase tracking-[0.3em] mt-2 relative z-10">
+              warlen.digital
+            </span>
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-violet/30 absolute top-4 left-4"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M9 1v3"/><path d="M15 1v3"/><path d="M9 20v3"/><path d="M15 20v3"/><path d="M20 9h3"/><path d="M20 15h3"/><path d="M1 9h3"/><path d="M1 15h3"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gold/20 absolute bottom-4 right-4"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
+          </div>
+        </div>
+
+        <span class="chip-glow rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-wider mb-2">
+          Fundador
+        </span>
+        <h3 class="font-display font-semibold text-xl md:text-2xl text-cream">
+          Warlen Rodrigues
+        </h3>
+        <p class="text-xs font-mono text-cream/50 uppercase tracking-widest mt-1">
+          Engenheiro de IA & Automação
+        </p>
+
+        <!-- Instagram link -->
+        <a href="https://www.instagram.com/warlen.digital/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 mt-6 text-xs text-cream/60 hover:text-cream transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-violet"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+          <span>@warlen.digital</span>
+        </a>
+      </div>
+
+      <!-- Right side text vision & credentials -->
+      <div class="space-y-8">
+        <span class="chip-glow rounded-full px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em]">
+          A Visão
+        </span>
+
+        <blockquote class="glass rounded-2xl p-6 md:p-8 border border-violet/15 relative">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gold/30 absolute top-4 right-6"><path d="m12 3-1.912 5.886H3.82l4.8 3.49L6.708 19 12 15.23 17.292 19l-1.912-6.624 4.8-3.49h-6.268z"/></svg>
+          <p class="text-base md:text-lg text-cream/80 font-medium leading-relaxed italic">
+            "Acredito que o tempo é o recurso mais valioso de qualquer negócio. Focar sua equipe em copiar dados, preencher planilhas manuais e responder perguntas repetitivas no WhatsApp é queimar dinheiro. Meu objetivo com a warlen.digital é criar ecossistemas que trabalham de forma autônoma e inteligente, liberando sua equipe para focar no que realmente gera lucro: a negociação estratégica."
+          </p>
+        </blockquote>
+
+        <div class="grid grid-cols-3 gap-4 border-t border-violet/10 pt-8">
+          <div class="space-y-1">
+            <div class="font-display font-bold text-xl md:text-2xl text-violet">100%</div>
+            <div class="font-mono text-[9px] md:text-[10px] text-cream/50 uppercase tracking-wider leading-snug">Código Aberto</div>
+          </div>
+          <div class="space-y-1">
+            <div class="font-display font-bold text-xl md:text-2xl text-gold">Autônomo</div>
+            <div class="font-mono text-[9px] md:text-[10px] text-cream/50 uppercase tracking-wider leading-snug">Foco em Processos</div>
+          </div>
+          <div class="space-y-1">
+            <div class="font-display font-bold text-xl md:text-2xl text-green">Ativo</div>
+            <div class="font-mono text-[9px] md:text-[10px] text-cream/50 uppercase tracking-wider leading-snug">Suporte de 30 dias</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= PREÇO E VALOR (OFFER) ================= -->
+  <section id="offer" class="relative py-24 md:py-36 px-6 border-t border-violet/10">
+    <div class="mx-auto max-w-7xl">
+      <span class="chip-glow rounded-full px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em]">
+        O Investimento
+      </span>
+      <h2 class="font-display font-semibold text-3xl sm:text-5xl md:text-6xl tracking-[-0.03em] leading-[1.05] max-w-[18ch] mb-4 mt-4">
+        Um ecossistema completo <br>
+        <span class="grad-text">sob medida para seu negócio.</span>
+      </h2>
+      <p class="text-cream/65 text-[15px] md:text-[17px] max-w-[52ch] mb-16">
+        Desenvolvemos integrações, robôs de IA e fluxos no n8n desenhados especificamente para a realidade da sua operação.
+      </p>
+
+      <div class="grid lg:grid-cols-[1fr_0.95fr] gap-12 lg:gap-16 items-start">
+        <!-- Left: Deliverables List -->
+        <div class="grid sm:grid-cols-2 gap-6">
+          <!-- Item 1 -->
+          <div class="glass rounded-2xl p-6 border border-violet/15 flex flex-col justify-between min-h-[190px]">
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-9 h-9 rounded-lg flex items-center justify-center tone-violet">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M9 1v3"/><path d="M15 1v3"/><path d="M9 20v3"/><path d="M15 20v3"/><path d="M20 9h3"/><path d="M20 15h3"/><path d="M1 9h3"/><path d="M1 15h3"/></svg>
+              </div>
+              <span class="font-mono text-[9px] text-cream/45 uppercase tracking-wider">Sob Medida</span>
+            </div>
+            <h3 class="font-display font-bold text-base text-cream mb-2">Hospedagem e Setup de n8n</h3>
+            <p class="text-xs text-cream/60 leading-relaxed">Servidor dedicado e seguro nas nuvens rodando n8n sem custos adicionais de licença comercial.</p>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="glass rounded-2xl p-6 border border-violet/15 flex flex-col justify-between min-h-[190px]">
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-9 h-9 rounded-lg flex items-center justify-center tone-accent">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+              </div>
+              <span class="font-mono text-[9px] text-cream/45 uppercase tracking-wider">Personalizado</span>
+            </div>
+            <h3 class="font-display font-bold text-base text-cream mb-2">Agente Inteligente de Vendas</h3>
+            <p class="text-xs text-cream/60 leading-relaxed">IA configurada com a base de conhecimento do seu produto para qualificar e converter no WhatsApp de forma humana.</p>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="glass rounded-2xl p-6 border border-violet/15 flex flex-col justify-between min-h-[190px]">
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-9 h-9 rounded-lg flex items-center justify-center tone-violet">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+              </div>
+              <span class="font-mono text-[9px] text-cream/45 uppercase tracking-wider">Sob Medida</span>
+            </div>
+            <h3 class="font-display font-bold text-base text-cream mb-2">Estruturação de CRM Kanban</h3>
+            <p class="text-xs text-cream/60 leading-relaxed">Pipeline visual integrado com arrastar e soltar de cartões para organização perfeita do time de vendas.</p>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="glass rounded-2xl p-6 border border-violet/15 flex flex-col justify-between min-h-[190px]">
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-9 h-9 rounded-lg flex items-center justify-center tone-violet">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              </div>
+              <span class="font-mono text-[9px] text-cream/45 uppercase tracking-wider">Incluso</span>
+            </div>
+            <h3 class="font-display font-bold text-base text-cream mb-2">Treinamento & Suporte VIP</h3>
+            <p class="text-xs text-cream/60 leading-relaxed">Capacitação completa da sua equipe para usar o sistema e suporte técnico para ajustes e melhorias por 30 dias.</p>
+          </div>
+        </div>
+
+        <!-- Right Sticky Card -->
+        <div class="lg:sticky lg:top-28 w-full">
+          <div class="conic-border p-[1.5px]">
+            <div class="rounded-2xl bg-ink-2 p-8 md:p-10 relative overflow-hidden">
+              <span class="chip-glow rounded-full px-3 py-1 font-mono text-[9px] uppercase tracking-wider mb-6 inline-block">
+                Sessão Gratuita
+              </span>
+              <h3 class="font-display font-bold text-2xl text-cream mb-4">Projeto Personalizado</h3>
+              
+              <div class="space-y-3 mb-8">
+                <div class="flex items-start gap-2.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-green shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                  <span class="text-xs font-medium text-cream/80 leading-tight">Mapeamento completo de fluxos operacionais</span>
+                </div>
+                <div class="flex items-start gap-2.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-green shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                  <span class="text-xs font-medium text-cream/80 leading-tight">Desenho de arquitetura n8n sob medida</span>
+                </div>
+                <div class="flex items-start gap-2.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-green shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                  <span class="text-xs font-medium text-cream/80 leading-tight">Configuração de robôs de IA personalizados</span>
+                </div>
+                <div class="flex items-start gap-2.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-green shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                  <span class="text-xs font-medium text-cream/80 leading-tight">Integração direta com o seu CRM de escolha</span>
+                </div>
+              </div>
+
+              <div class="h-[1px] bg-violet/10 w-full mb-6"></div>
+
+              <div class="space-y-3 mb-8">
+                <p class="text-xs text-cream/70 leading-relaxed">
+                  Cada negócio possui fluxos e integrações particulares. Fale diretamente conosco para fazer um diagnóstico gratuito e receber uma proposta personalizada.
+                </p>
+                <div class="flex items-baseline gap-2">
+                  <span class="text-2xl md:text-3xl font-display font-bold text-green tracking-tight">Sessão de Diagnóstico</span>
+                </div>
+                <div class="text-[11px] font-mono text-cream/50">
+                  Disponibilidade limitada para novos projetos este mês.
+                </div>
+              </div>
+
+              <a href="https://wa.me/5527997394049?text=Olá%20Warlen,%20quero%20automatizar%20minha%20operação!" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center font-semibold transition-all px-6 py-3.5 min-h-[48px] text-[15px] btn-primary-glow gap-2">
+                Agendar Diagnóstico Grátis
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+              </a>
+
+              <div class="flex items-center gap-2 justify-center mt-6 font-mono text-[10px] text-cream/45">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gold"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>Diagnóstico inicial e desenho de fluxo sem custos.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SOLUÇÕES COMPLEMENTARES ================= -->
+  <section id="complementary" class="relative py-24 md:py-36 px-6 border-t border-violet/10">
+    <div class="mx-auto max-w-7xl">
+      <span class="chip-glow rounded-full px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em]">
+        Soluções Complementares
+      </span>
+      <h2 class="font-display font-semibold text-3xl sm:text-5xl md:text-6xl tracking-[-0.03em] leading-[1.05] max-w-[20ch] mb-4 mt-4">
+        Acelere seu faturamento <br>
+        <span class="grad-text">com nossa esteira completa.</span>
+      </h2>
+      <p class="text-cream/65 text-[15px] md:text-[17px] max-w-[52ch] mb-16">
+        Além da engenharia de automação, cobrimos toda a estrutura de tráfego, rastreamento e conversão para impulsionar suas campanhas.
+      </p>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Card 1 -->
+        <div class="glass rounded-2xl p-6 border border-violet/15 flex flex-col justify-between min-h-[200px] hover:border-violet/30 transition-all duration-300 group">
+          <div>
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-6 tone-accent">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+            </div>
+            <h3 class="font-display font-bold text-lg text-cream mb-2">Tráfego Pago</h3>
+          </div>
+          <p class="text-xs text-cream/60 leading-relaxed">Gestão estratégica de anúncios para atrair clientes qualificados e prontos para fechar negócio com sua empresa.</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="glass rounded-2xl p-6 border border-violet/15 flex flex-col justify-between min-h-[200px] hover:border-violet/30 transition-all duration-300 group">
+          <div>
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-6 tone-violet">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+            </div>
+            <h3 class="font-display font-bold text-lg text-cream mb-2">Landing Pages</h3>
+          </div>
+          <p class="text-xs text-cream/60 leading-relaxed">Desenvolvimento de páginas de alta conversão, rápidas e focadas em transformar visitantes em contatos comerciais.</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="glass rounded-2xl p-6 border border-violet/15 flex flex-col justify-between min-h-[200px] hover:border-violet/30 transition-all duration-300 group">
+          <div>
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-6 tone-violet">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <h3 class="font-display font-bold text-lg text-cream mb-2">Tracking Avançado</h3>
+          </div>
+          <p class="text-xs text-cream/60 leading-relaxed">Instalação profissional de tags, pixels e rastreamento de conversão (GTM, GA4 e API de Conversões do Meta).</p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="glass rounded-2xl p-6 border border-violet/15 flex flex-col justify-between min-h-[200px] hover:border-violet/30 transition-all duration-300 group">
+          <div>
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-6 tone-accent">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+            </div>
+            <h3 class="font-display font-bold text-lg text-cream mb-2">Meta Ads</h3>
+          </div>
+          <p class="text-xs text-cream/60 leading-relaxed">Campanhas completas no Facebook e Instagram para escalar a aquisição de clientes de forma previsível.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PERGUNTAS FREQUENTES (FAQ) ================= -->
+  <section id="faq" class="relative py-24 md:py-36 px-6 border-t border-violet/10">
+    <div class="mx-auto max-w-7xl grid md:grid-cols-[0.9fr_1.1fr] gap-12 lg:gap-16 items-start">
+      
+      <!-- Left sticky info -->
+      <div class="md:sticky md:top-28 space-y-6">
+        <span class="chip-glow rounded-full px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em]">
+          Dúvidas frequentes
+        </span>
+        <h2 class="font-display font-semibold text-3xl sm:text-5xl md:text-6xl tracking-[-0.03em] leading-[1.05] mb-4 mt-4">
+          Perguntas <br>
+          <span class="grad-text">Frequentes.</span>
+        </h2>
+        <p class="text-cream/65 text-sm md:text-base max-w-[40ch] leading-relaxed">
+          Ainda tem dúvidas sobre como os robôs de IA ou as automações do n8n funcionam? Fale diretamente comigo no WhatsApp.
+        </p>
+        <a href="https://wa.me/5527997394049?text=Olá%20Warlen,%20quero%20automatizar%20minha%20operação!" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center font-semibold transition-all px-6 py-3 min-h-[44px] text-[14px] btn-ghost-glow gap-2">
+          Tirar Dúvidas
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Right accordion wrapper -->
+      <div class="space-y-4">
+        <!-- FAQ Item 1 -->
+        <div class="faq-item rounded-xl border border-violet/15 glass overflow-hidden transition-all duration-300">
+          <button class="faq-toggle w-full px-6 py-5 flex items-center justify-between text-left gap-4 hover:bg-ink-2/30 transition-colors focus:outline-none">
+            <span class="font-display font-semibold text-sm md:text-base text-cream/90">Preciso pagar licenças mensais caras para manter o sistema?</span>
+            <div class="faq-icon-wrapper shrink-0 w-6 h-6 rounded-full bg-violet/10 flex items-center justify-center text-violet transition-transform duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="faq-plus"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
+            </div>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-6 pb-6 pt-2 text-xs md:text-sm text-cream/75 leading-relaxed border-t border-violet/5 bg-ink/20">
+              Não! Nosso ecossistema é construído com ferramentas de código aberto (open-source) hospedadas em servidores de baixo custo. Você economiza milhares de reais que pagaria para plataformas fechadas.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 2 -->
+        <div class="faq-item rounded-xl border border-violet/15 glass overflow-hidden transition-all duration-300">
+          <button class="faq-toggle w-full px-6 py-5 flex items-center justify-between text-left gap-4 hover:bg-ink-2/30 transition-colors focus:outline-none">
+            <span class="font-display font-semibold text-sm md:text-base text-cream/90">A IA pode falar coisas erradas ou inventar preços?</span>
+            <div class="faq-icon-wrapper shrink-0 w-6 h-6 rounded-full bg-violet/10 flex items-center justify-center text-violet transition-transform duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="faq-plus"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
+            </div>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-6 pb-6 pt-2 text-xs md:text-sm text-cream/75 leading-relaxed border-t border-violet/5 bg-ink/20">
+              De forma alguma. Nós travamos a IA usando diretrizes rígidas baseadas exclusivamente em um arquivo de conhecimento que nós criamos para a sua empresa. Se ela não souber a resposta, ela passa o contato para um humano de forma educada.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 3 -->
+        <div class="faq-item rounded-xl border border-violet/15 glass overflow-hidden transition-all duration-300">
+          <button class="faq-toggle w-full px-6 py-5 flex items-center justify-between text-left gap-4 hover:bg-ink-2/30 transition-colors focus:outline-none">
+            <span class="font-display font-semibold text-sm md:text-base text-cream/90">Eu já utilizo um CRM (HubSpot, RD, Active). É possível integrar?</span>
+            <div class="faq-icon-wrapper shrink-0 w-6 h-6 rounded-full bg-violet/10 flex items-center justify-center text-violet transition-transform duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="faq-plus"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
+            </div>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-6 pb-6 pt-2 text-xs md:text-sm text-cream/75 leading-relaxed border-t border-violet/5 bg-ink/20">
+              Com certeza. O n8n nos dá a flexibilidade de conectar seu WhatsApp a praticamente qualquer ferramenta do mercado que possua uma API de conexão aberta.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 4 -->
+        <div class="faq-item rounded-xl border border-violet/15 glass overflow-hidden transition-all duration-300">
+          <button class="faq-toggle w-full px-6 py-5 flex items-center justify-between text-left gap-4 hover:bg-ink-2/30 transition-colors focus:outline-none">
+            <span class="font-display font-semibold text-sm md:text-base text-cream/90">O que acontece se meu WhatsApp for bloqueado?</span>
+            <div class="faq-icon-wrapper shrink-0 w-6 h-6 rounded-full bg-violet/10 flex items-center justify-center text-violet transition-transform duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="faq-plus"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
+            </div>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-6 pb-6 pt-2 text-xs md:text-sm text-cream/75 leading-relaxed border-t border-violet/5 bg-ink/20">
+              Nós implementamos técnicas avançadas de simulação de digitação humana e atrasos aleatórios nas mensagens para mitigar riscos de bloqueio. Além disso, estruturamos o robô para qualificar rápido e evitar disparos em massa.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 5 -->
+        <div class="faq-item rounded-xl border border-violet/15 glass overflow-hidden transition-all duration-300">
+          <button class="faq-toggle w-full px-6 py-5 flex items-center justify-between text-left gap-4 hover:bg-ink-2/30 transition-colors focus:outline-none">
+            <span class="font-display font-semibold text-sm md:text-base text-cream/90">Em quanto tempo o sistema fica pronto para rodar?</span>
+            <div class="faq-icon-wrapper shrink-0 w-6 h-6 rounded-full bg-violet/10 flex items-center justify-center text-violet transition-transform duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="faq-plus"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
+            </div>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-6 pb-6 pt-2 text-xs md:text-sm text-cream/75 leading-relaxed border-t border-violet/5 bg-ink/20">
+              O prazo médio de entrega de um ecossistema completo (robô qualificador + n8n + integração de CRM) é de 12 a 15 dias corridos, com reuniões de alinhamento no meio do processo.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 6 -->
+        <div class="faq-item rounded-xl border border-violet/15 glass overflow-hidden transition-all duration-300">
+          <button class="faq-toggle w-full px-6 py-5 flex items-center justify-between text-left gap-4 hover:bg-ink-2/30 transition-colors focus:outline-none">
+            <span class="font-display font-semibold text-sm md:text-base text-cream/90">Como funciona o suporte pós-entrega?</span>
+            <div class="faq-icon-wrapper shrink-0 w-6 h-6 rounded-full bg-violet/10 flex items-center justify-center text-violet transition-transform duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="faq-plus"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
+            </div>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-6 pb-6 pt-2 text-xs md:text-sm text-cream/75 leading-relaxed border-t border-violet/5 bg-ink/20">
+              Você tem 30 dias de suporte VIP diretamente no WhatsApp para tirar dúvidas, corrigir falhas e fazer pequenos ajustes. Também fornecemos um manual detalhado para que você e sua equipe tenham autonomia.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= SEÇÃO FINAL (CTA FOOTER) ================= -->
+  <section class="relative pt-24 pb-12 px-6 border-t border-violet/10 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-t from-black via-ink/50 to-transparent pointer-events-none -z-10"></div>
+    
+    <div class="mx-auto max-w-7xl relative z-10">
+      <!-- Final CTA -->
+      <div class="flex flex-col items-center text-center max-w-[800px] mx-auto mb-24">
+        <span class="chip-glow rounded-full px-3.5 py-1.5 font-mono text-[10px] md:text-[11px] uppercase tracking-[0.2em] mb-6 text-green border-green/20">
+          Últimas vagas para este mês
+        </span>
+        
+        <h2 class="font-display font-semibold text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-[-0.03em] leading-[1.03] mb-6">
+          Pronto para colocar sua <br>
+          <span class="grad-text">empresa no automático?</span>
+        </h2>
+        
+        <p class="text-cream/75 text-sm md:text-base max-w-[50ch] mb-10 leading-relaxed">
+          Pare de perder tempo com processos lentos e leads esquecidos no WhatsApp. Fale agora com a warlen.digital e garanta sua vaga.
+        </p>
+
+        <a href="https://wa.me/5527997394049?text=Olá%20Warlen,%20quero%20automatizar%20minha%20operação!" target="_blank" rel="noopener noreferrer" class="rocket-icon-hover inline-flex items-center justify-center font-semibold transition-all px-6 py-3.5 min-h-[48px] text-[15px] btn-primary-glow gap-2">
+          Começar Agora
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="rocket-icon"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Footer area -->
+      <div class="border-t border-violet/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex flex-col md:flex-row items-center gap-2.5 md:gap-4 text-center md:text-left">
+          <div class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-violet"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M9 1v3"/><path d="M15 1v3"/><path d="M9 20v3"/><path d="M15 20v3"/><path d="M20 9h3"/><path d="M20 15h3"/><path d="M1 9h3"/><path d="M1 15h3"/></svg>
+            <span class="font-display font-bold text-sm md:text-base">warlen<span class="text-violet">.digital</span></span>
+          </div>
+          <span class="font-mono text-[10px] text-cream/40 leading-none">
+            © <span id="year">2026</span> Warlen.digital. Todos os direitos reservados.
+          </span>
+        </div>
+
+        <div class="flex items-center gap-6 font-mono text-[10px] uppercase tracking-wider text-cream/50">
+          <a href="#pains" class="hover:text-cream transition-colors">Dores</a>
+          <a href="#services" class="hover:text-cream transition-colors">Serviços</a>
+          <a href="#process" class="hover:text-cream transition-colors">Método</a>
+          <a href="#offer" class="hover:text-cream transition-colors">Investimento</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= INTERACTION SCRIPTS ================= -->
+  <script>
+    // Set dynamic current year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile Navbar Menu Toggle Logic
+    const menuBtn = document.getElementById('menu-btn');
+    const closeBtn = document.getElementById('close-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.remove('hidden');
+      mobileMenu.classList.add('flex');
+    });
+
+    const closeMobileMenu = () => {
+      mobileMenu.classList.add('hidden');
+      mobileMenu.classList.remove('flex');
+    };
+
+    closeBtn.addEventListener('click', closeMobileMenu);
+    mobileLinks.forEach(link => link.addEventListener('click', closeMobileMenu));
+
+    // Navbar Scroll Top padding change
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) {
+        navbar.classList.remove('top-4');
+        navbar.classList.add('top-2');
+      } else {
+        navbar.classList.remove('top-2');
+        navbar.classList.add('top-4');
+      }
+    });
+
+    // Custom FAQ Accordion Logic
+    const faqToggles = document.querySelectorAll('.faq-toggle');
+    
+    faqToggles.forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const item = toggle.closest('.faq-item');
+        const content = item.querySelector('.faq-content');
+        const iconWrapper = item.querySelector('.faq-icon-wrapper');
+        const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+
+        // Close all other open items
+        document.querySelectorAll('.faq-content').forEach(c => {
+          c.style.maxHeight = '0px';
+          c.closest('.faq-item').querySelector('.faq-icon-wrapper').classList.remove('rotate-45');
+        });
+
+        // Toggle current
+        if (!isOpen) {
+          content.style.maxHeight = content.scrollHeight + 'px';
+          iconWrapper.classList.add('rotate-45');
+        } else {
+          content.style.maxHeight = '0px';
+          iconWrapper.classList.remove('rotate-45');
+        }
+      });
+    });
+
+    // Console Terminal step by step simulator logic
+    const consoleScreen = document.getElementById('console-screen');
+    const terminalLines = [
+      { type: "input", text: "n8n-automation --start-sales-agent --verbose" },
+      { type: "info", text: "Initializing Warlen.Digital Orchestrator v4.2..." },
+      { type: "info", text: "Listening to webhook: UAZAPI -> Chatwoot -> n8n" },
+      { type: "webhook", text: "⚡ Webhook received! Msg from: +55 (27) 99739-4049" },
+      { type: "info", text: "WhatsApp Profile Name detected: \"Clara Dias\"" },
+      { type: "crm", text: "⚙️ Creating contact in Baserow CRM..." },
+      { type: "ok", text: "✔️ Card \"Clara Dias\" successfully created in stage [Novos Leads]" },
+      { type: "ai", text: "🤖 Prompting Gemini Pro (Free Tier - 15 RPM)..." },
+      { type: "ai-text", text: "Simulating human delay (3.8s) + typing status..." },
+      { type: "msg-out", text: "💬 AI -> WhatsApp: \"Olá Clara! Tudo bem? Vi que quer automatizar sua empresa. Qual o seu melhor e-mail para eu te enviar nossa apresentação?\"" },
+      { type: "msg-in", text: "💬 WhatsApp -> AI: \"Oi! É clara@email.com.br\"" },
+      { type: "crm", text: "⚙️ Updating CRM record with email [clara@email.com.br]..." },
+      { type: "ok", text: "✔️ CRM record updated and temperature flagged as [🔥 QUENTE]" },
+      { type: "info", text: "Workflow complete. System waiting for next message." }
+    ];
+
+    let currentStep = 0;
+
+    function renderTerminal() {
+      // Clear and render lines up to currentStep
+      consoleScreen.innerHTML = '';
+      
+      for (let i = 0; i < currentStep; i++) {
+        const line = terminalLines[i];
+        const p = document.createElement('div');
+        p.className = 'leading-relaxed transition-opacity duration-300';
+        
+        if (line.type === 'input') {
+          p.innerHTML = `<span class="text-violet font-bold">warlen.digital:~$ </span><span>${line.text}</span>`;
+        } else if (line.type === 'info') {
+          p.className = 'text-cream/50';
+          p.textContent = line.text;
+        } else if (line.type === 'webhook') {
+          p.className = 'text-gold font-semibold';
+          p.textContent = line.text;
+        } else if (line.type === 'crm') {
+          p.className = 'text-blue-400';
+          p.textContent = line.text;
+        } else if (line.type === 'ok') {
+          p.className = 'text-green font-medium';
+          p.textContent = line.text;
+        } else if (line.type === 'ai') {
+          p.className = 'text-purple-400';
+          p.textContent = line.text;
+        } else if (line.type === 'ai-text') {
+          p.className = 'text-purple-300 italic pl-4';
+          p.textContent = line.text;
+        } else if (line.type === 'msg-out') {
+          p.className = 'text-yellow-200/90 font-medium pl-2 border-l border-yellow-500/30';
+          p.textContent = line.text;
+        } else if (line.type === 'msg-in') {
+          p.className = 'text-cream/90 pl-2 border-l border-cream/30';
+          p.textContent = line.text;
+        } else {
+          p.className = 'text-cream/70';
+          p.textContent = line.text;
+        }
+        
+        consoleScreen.appendChild(p);
+      }
+
+      // Append cursor line
+      if (currentStep <= terminalLines.length) {
+        const cursorDiv = document.createElement('div');
+        cursorDiv.className = 'text-cream/90';
+        if (currentStep === 0) {
+          cursorDiv.innerHTML = `<span class="text-violet font-bold">warlen.digital:~$ </span><span class="terminal-cursor">█</span>`;
+        } else {
+          cursorDiv.innerHTML = `<span class="terminal-cursor">█</span>`;
+        }
+        consoleScreen.appendChild(cursorDiv);
+      }
+
+      // Scroll console to bottom
+      consoleScreen.scrollTop = consoleScreen.scrollHeight;
+    }
+
+    // Interval to advance terminal animation steps
+    setInterval(() => {
+      currentStep = (currentStep + 1) % (terminalLines.length + 2);
+      renderTerminal();
+    }, 2800);
+
+    // Initial render
+    renderTerminal();
+  </script>
+</body>
+</html>
