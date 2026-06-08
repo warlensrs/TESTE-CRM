@@ -1536,14 +1536,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // WHATSAPP TRIGGER & FB PIXEL LEAD TRACKING
     // ==========================================
     const wppButtons = document.querySelectorAll('.wpp-btn-action');
-    const targetPhone = '5511971193386';
-    const preMessage = 'Olá, Nathalia! Acessei o seu site e gostaria de saber mais sobre as tiragens de Tarot.';
-    const wppTargetUrl = `https://wa.me/${targetPhone}?text=${encodeURIComponent(preMessage)}`;
-
     wppButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            
+        btn.addEventListener('click', () => {
             // Fire Facebook Pixel Lead Event
             if (typeof fbq === 'function') {
                 fbq('track', 'Lead', {
@@ -1551,11 +1545,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 console.log('FB Pixel logged: Lead');
             }
-            
-            // Brief timeout for pixel trigger delivery
-            setTimeout(() => {
-                window.open(wppTargetUrl, '_blank');
-            }, 250);
         });
     });
 });
@@ -1588,7 +1577,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="logo-v-small">✦</span>
                 <span class="logo-text-small">NATHALIA PEPE</span>
             </div>
-            <a href="#" class="btn-nav wpp-btn-action">Agendar Tiragem</a>
+            <a href="https://wa.me/559299782641?text=Ol%C3%A1%2C%20Nathalia!%20Acessei%20o%20seu%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20as%20tiragens%20de%20Tarot." target="_blank" rel="noopener noreferrer" class="btn-nav wpp-btn-action">Agendar Tiragem</a>
         </div>
     </nav>
 
@@ -1607,7 +1596,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     Consultas exclusivas e acolhedoras para trazer clareza prática às suas dúvidas sobre relacionamentos, carreira, finanças e caminhos de vida.
                 </p>
                 <div class="hero-actions">
-                    <a href="#" class="btn-primary wpp-btn-action">
+                    <a href="https://wa.me/559299782641?text=Ol%C3%A1%2C%20Nathalia!%20Acessei%20o%20seu%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20as%20tiragens%20de%20Tarot." target="_blank" rel="noopener noreferrer" class="btn-primary wpp-btn-action">
                         Agendar Minha Consulta
                         <span class="btn-arrow">→</span>
                     </a>
@@ -1737,7 +1726,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p>Uma leitura profunda e acolhedora para trazer direcionamento e clareza para qualquer área da sua vida (amor, carreira, finanças ou decisões importantes) em uma única sessão.</p>
                         <span class="card-price">R$ 250</span>
                         <p class="card-info">Duração: 1h (Vídeo)</p>
-                        <a href="#" class="btn-card wpp-btn-action">Agendar Consulta</a>
+                        <a href="https://wa.me/559299782641?text=Ol%C3%A1%2C%20Nathalia!%20Acessei%20o%20seu%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20as%20tiragens%20de%20Tarot." target="_blank" rel="noopener noreferrer" class="btn-card wpp-btn-action">Agendar Consulta</a>
                     </div>
                 </div>
             </div>
@@ -1754,48 +1743,48 @@ document.addEventListener('DOMContentLoaded', () => {
                 <!-- Depoimento 1 -->
                 <div class="testimonial-card reveal">
                     <div class="chat-header">
-                        <div class="chat-avatar">M</div>
+                        <div class="chat-avatar">G</div>
                         <div class="chat-user">
-                            <h4>Mariana Silva</h4>
-                            <span>São Paulo - SP</span>
+                            <h4>@gabi.almeida_</h4>
+                            <span>Instagram Direct</span>
                         </div>
                         <span class="chat-status">✓✓ Lido</span>
                     </div>
                     <div class="chat-bubble">
                         <div class="stars">★★★★★</div>
-                        <p>"A leitura com a Nathalia foi cirúrgica. Ela enxergou detalhes do meu momento de carreira que ninguém sabia e me ajudou a tomar uma decisão importante de transição."</p>
+                        <p>"Mulherrr, vc não tem noção! Aquela tiragem que vc fez sobre o meu trabalho deu muito certo. Vc falou que ia aparecer uma proposta na segunda quinzena de maio e apareceu ontem dia 18!! Eu tava super insegura mas lembrei do que vc me aconselhou na consulta e aceitei. Muito obrigada de verdade ❤️✨"</p>
                     </div>
                 </div>
 
                 <!-- Depoimento 2 -->
                 <div class="testimonial-card reveal">
                     <div class="chat-header">
-                        <div class="chat-avatar">A</div>
+                        <div class="chat-avatar">L</div>
                         <div class="chat-user">
-                            <h4>Amanda Rodrigues</h4>
-                            <span>Curitiba - PR</span>
+                            <h4>@luiza_carvalho</h4>
+                            <span>WhatsApp</span>
                         </div>
                         <span class="chat-status">✓✓ Lido</span>
                     </div>
                     <div class="chat-bubble">
                         <div class="stars">★★★★★</div>
-                        <p>"Me senti extremamente acolhida. A forma como ela explica as cartas é clara e não tem aquele tom assustador. Saí da sessão leve e com as respostas que precisava."</p>
+                        <p>"Nath, passando pra te agradecer pela consulta de ontem. Eu tava muito perdida, com a cabeça fervendo de ansiedade... Vc me trouxe uma paz tão grande e me fez enxergar tudo com clareza. Segui seu conselho de conversar com calma e resolveu tanta coisa que parecia impossível. Vc é luz!"</p>
                     </div>
                 </div>
 
                 <!-- Depoimento 3 -->
                 <div class="testimonial-card reveal">
                     <div class="chat-header">
-                        <div class="chat-avatar">L</div>
+                        <div class="chat-avatar">P</div>
                         <div class="chat-user">
-                            <h4>Lucas Mendes</h4>
-                            <span>Belo Horizonte - MG</span>
+                            <h4>@pedromartins.dev</h4>
+                            <span>Instagram Direct</span>
                         </div>
                         <span class="chat-status">✓✓ Lido</span>
                     </div>
                     <div class="chat-bubble">
                         <div class="stars">★★★★★</div>
-                        <p>"A tiragem do amor clareou muito o meu relacionamento. Foi incrível a riqueza de detalhes e a sensibilidade que ela teve. Super recomendo a consulta geral."</p>
+                        <p>"Faço consulta com a Nathalia a cada 3 meses e não abro mão. O direcionamento dela é surreal de preciso, ajuda demais a clarear as decisões de negócios e carreira. É um investimento que se paga muito rápido pela segurança que dá pra agir."</p>
                     </div>
                 </div>
 
@@ -1804,14 +1793,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="chat-header">
                         <div class="chat-avatar">C</div>
                         <div class="chat-user">
-                            <h4>Camila Albuquerque</h4>
-                            <span>Rio de Janeiro - RJ</span>
+                            <h4>@carol_albuquerque</h4>
+                            <span>WhatsApp</span>
                         </div>
                         <span class="chat-status">✓✓ Lido</span>
                     </div>
                     <div class="chat-bubble">
                         <div class="stars">★★★★★</div>
-                        <p>"Fiz a consulta de tarot completa e me ajudou muito a entender bloqueios antigos. A sensibilidade da Nathalia é impressionante. Sinto que agora meu caminho está super claro."</p>
+                        <p>"Eu juro que fiquei chocada com a leitura completa de ontem. Vc descreveu traços da minha personalidade e bloqueios do passado que eu nunca tinha falado pra NINGUÉM. É assustador o quanto o tarot com vc traz clareza rápida. Gratidão pela paciência e carinho 🙏🔮"</p>
                     </div>
                 </div>
 
@@ -1820,14 +1809,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="chat-header">
                         <div class="chat-avatar">R</div>
                         <div class="chat-user">
-                            <h4>Rodrigo Santos</h4>
-                            <span>Salvador - BA</span>
+                            <h4>@rodrigosouza.arq</h4>
+                            <span>WhatsApp</span>
                         </div>
                         <span class="chat-status">✓✓ Lido</span>
                     </div>
                     <div class="chat-bubble">
                         <div class="stars">★★★★★</div>
-                        <p>"Fiquei surpreso com a precisão da leitura de negócios. Ela me deu conselhos muito estratégicos para colocar em prática na minha empresa. Valeu cada centavo."</p>
+                        <p>"Excelente atendimento. Muito profissional e direto ao ponto, sem enrolação. A consulta me ajudou a destravar um projeto que estava engavetado há meses por insegurança. Recomendo muito!"</p>
                     </div>
                 </div>
 
@@ -1836,14 +1825,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="chat-header">
                         <div class="chat-avatar">J</div>
                         <div class="chat-user">
-                            <h4>Juliana Costa</h4>
-                            <span>Porto Alegre - RS</span>
+                            <h4>@ju_costaa</h4>
+                            <span>Instagram Direct</span>
                         </div>
                         <span class="chat-status">✓✓ Lido</span>
                     </div>
                     <div class="chat-bubble">
                         <div class="stars">★★★★★</div>
-                        <p>"Excelente atendimento! O sigilo e o profissionalismo são impecáveis. A sessão de 1 hora traz direcionamento prático para meses de tomada de decisões."</p>
+                        <p>"Nati do céu, aquela última tiragem foi cirúrgica!! Eu tava tão bloqueada e vc conseguiu abrir meus olhos pras oportunidades. Já agendei a próxima pra minha mãe, vc precisa atender ela kkkk. Vc é maravilhosa!"</p>
                     </div>
                 </div>
             </div>
@@ -1859,7 +1848,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px;">
                     Encontre respostas rápidas para as principais questões sobre o funcionamento dos agendamentos, consultas e atendimentos.
                 </p>
-                <a href="#" class="btn-secondary wpp-btn-action">Falar com a Equipe</a>
+                <a href="https://wa.me/559299782641?text=Ol%C3%A1%2C%20Nathalia!%20Gostaria%20de%20tirar%20algumas%20d%C3%BAvidas%20sobre%20as%20consultas%20de%20Tarot." target="_blank" rel="noopener noreferrer" class="btn-secondary wpp-btn-action">Falar com a Equipe</a>
             </div>
             
             <div class="faq-accordion">
@@ -1940,7 +1929,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="hero-cursive" style="margin-bottom: 10px; font-size: 3rem;">O universo te aguarda</div>
             <h2 class="cta-headline reveal">O seu caminho de clareza <br><span class="accent">começa agora.</span></h2>
             <p class="cta-sub reveal">Não viva com dúvidas ou incertezas. Agende sua tiragem personalizada com Nathalia Pepe.</p>
-            <a href="#" class="btn-primary btn-cta-green wpp-btn-action">
+            <a href="https://wa.me/559299782641?text=Ol%C3%A1%2C%20Nathalia!%20Acessei%20o%20seu%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20as%20tiragens%20de%20Tarot." target="_blank" rel="noopener noreferrer" class="btn-primary btn-cta-green wpp-btn-action">
                 Garantir Meu Agendamento
                 <span class="btn-arrow">→</span>
             </a>
@@ -1960,7 +1949,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </footer>
 
     <!-- FLOATING WHATSAPP BUTTON -->
-    <a href="#" class="floating-whatsapp wpp-btn-action" aria-label="Falar no WhatsApp">
+    <a href="https://wa.me/559299782641?text=Ol%C3%A1%2C%20Nathalia!%20Acessei%20o%20seu%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20as%20tiragens%20de%20Tarot." target="_blank" rel="noopener noreferrer" class="floating-whatsapp wpp-btn-action" aria-label="Falar no WhatsApp">
         <svg viewBox="0 0 32 32" class="whatsapp-icon" xmlns="http://www.w3.org/2000/svg">
             <path d="M16 2.015C8.28 2.015 2 8.294 2 16.012c0 2.535.68 5.008 1.954 7.214L2 30l6.906-1.815a13.882 13.882 0 0 0 7.094 1.93h.005c7.72 0 14-6.28 14-14.004S23.72 2.015 16 2.015z" fill="#25D366"/>
             <path d="M12.3 9.497c-.31-.69-.636-.704-.93-.717-.243-.01-.52-.01-.796-.01s-.725.103-1.103.516c-.38.412-1.45 1.417-1.45 3.456s1.485 4.01 1.69 4.286c.208.275 2.923 4.464 7.08 6.257 3.456 1.49 4.156 1.192 4.916 1.12.76-.07 2.45-1.002 2.795-1.97.345-.967.345-1.796.242-1.97-.104-.173-.38-.276-.795-.483s-2.45-1.21-2.83-1.348c-.38-.138-.656-.208-.93.207-.277.414-1.07 1.348-1.31 1.623-.242.276-.484.31-.9.103-.414-.207-1.748-.644-3.33-2.057-1.232-1.1-2.062-2.463-2.304-2.876-.242-.413-.026-.636.182-.843.186-.184.414-.482.62-.724.208-.242.277-.414.415-.69.138-.276.07-.517-.035-.724-.104-.207-.93-2.245-1.275-3.076z" fill="#FFF"/>
