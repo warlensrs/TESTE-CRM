@@ -1398,5 +1398,31 @@
     // Initial render
     renderTerminal();
   </script>
+
+  <!-- ================= FLOATING WHATSAPP BUTTON ================= -->
+  <a href="https://wa.me/5527997394049?text=Olá%20Warlen,%20quero%20automatizar%20minha%20operação!" 
+     target="_blank" 
+     rel="noopener noreferrer" 
+     class="fixed bottom-6 right-6 z-50 flex items-center gap-3 group"
+     aria-label="Fale conosco no WhatsApp">
+    <!-- Tooltip / Alert Bubble -->
+    <span class="glass px-4 py-2 rounded-full text-xs font-medium text-cream border border-green/30 opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 pointer-events-none transition-all duration-300 shadow-xl flex items-center gap-1.5 whitespace-nowrap">
+      <span class="relative flex h-2 w-2">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-green"></span>
+      </span>
+      Fale com Warlen
+    </span>
+    <!-- Button Circle -->
+    <div class="w-14 h-14 bg-[#25D366] hover:bg-[#20ba5a] text-white rounded-full flex items-center justify-center shadow-lg shadow-green-500/20 hover:shadow-green-500/40 hover:scale-110 active:scale-95 transition-all duration-300 relative group-hover:animate-none animate-bounce">
+      <!-- Glow ring -->
+      <span class="absolute inset-0 rounded-full bg-[#25D366] opacity-40 animate-ping pointer-events-none"></span>
+      
+      <!-- WhatsApp SVG Icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" class="relative z-10">
+        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.498 1.451 5.411 1.453 5.45.004 9.885-4.432 9.888-9.886.002-2.642-1.026-5.127-2.894-6.998C17.186 1.85 14.704.823 12.01.823c-5.451 0-9.887 4.433-9.892 9.886-.001 1.986.518 3.926 1.505 5.64l-.993 3.626 3.71-.973zm11.233-5.267c-.29-.145-1.716-.847-1.98-.943-.262-.096-.454-.145-.644.145-.19.29-.738.943-.905 1.135-.167.19-.335.213-.625.068-1.796-.897-3.08-1.558-4.328-3.693-.314-.54.314-.5.9-.176.166.09.33.21.493.33.16.12.23.23.33.43.1.2.05.37-.02.51-.08.15-.65 1.56-.8 1.92-.15.35-.3.3-.43.29-.13-.01-.27-.01-.41-.01-.14 0-.38.05-.58.27-.2.22-.77.75-.77 1.83 0 1.08.79 2.12.9 2.27.11.15 1.56 2.38 3.77 3.34.528.229 1.01.378 1.353.488.558.177 1.066.152 1.468.092.448-.067 1.417-.58 1.616-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.15-.51-.29z"/>
+      </svg>
+    </div>
+  </a>
 </body>
 </html>
